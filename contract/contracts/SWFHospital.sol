@@ -12,6 +12,8 @@ contract Hospital is IHospital, Initializable, Ownable {
   uint8 _currentBedCount;
   Symptoms[] _impossiblePatient;
 
+  event SetHospitalData();
+
   function initialize(address _owner, uint8 bedCount) public payable initializer {
 		_bedCount = bedCount;
     _owner = msg.sender;
@@ -22,6 +24,7 @@ contract Hospital is IHospital, Initializable, Ownable {
       setCurrentCount(currentBedCount);
     }
     setSymptoms(impossibleSymptoms);
+    emit SetHospitalData();
   }
 
   function getStatus() public view returns (Status memory) {

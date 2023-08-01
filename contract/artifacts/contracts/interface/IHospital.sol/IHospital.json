@@ -1,0 +1,72 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IHospital",
+  "sourceName": "contracts/interface/IHospital.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "getStatus",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint8",
+              "name": "_bedCount",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint8",
+              "name": "_currentBedCount",
+              "type": "uint8"
+            },
+            {
+              "internalType": "enum IHospital.Symptoms[]",
+              "name": "_impossiblePatient",
+              "type": "uint8[]"
+            }
+          ],
+          "internalType": "struct IHospital.Status",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8",
+          "name": "bedCount",
+          "type": "uint8"
+        }
+      ],
+      "name": "setCount",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8",
+          "name": "currentBedCount",
+          "type": "uint8"
+        },
+        {
+          "internalType": "enum IHospital.Symptoms[]",
+          "name": "impossibleSymptoms",
+          "type": "uint8[]"
+        }
+      ],
+      "name": "setHospitalData",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

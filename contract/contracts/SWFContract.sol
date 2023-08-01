@@ -3,11 +3,13 @@ pragma solidity >= 0.8.0 <= 0.9.0;
 
 import "@openzeppelin/contracts/proxy/Clones.sol";
 import "./interface/IHospital.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 
-contract SWFContract {
+contract SWFContract is Ownable{
 	address[] public hospitals;
-	address public implementationContract;
+	address private implementationContract;
+	address[] public emergency;
 
 	constructor(address _implementation) {
 		implementationContract = _implementation;
@@ -15,9 +17,29 @@ contract SWFContract {
 
 	event NewHospital(address indexed hospital);
 
+	function changeImplementationContract (address _implementation) external onlyOwner {
+		implementationContract = _implementation;
+	}
+
+	function addEmergency(address hospital) external onlyOwner {
+		emergency.push(hospital);
+	}
+
+	function deleteEmergency(address element) internal {
+		for (uint256 i = 0; i < emergency.length; i++) {
+			if (emergency[i] == element) {
+				if (i < emergency.length - 1) {
+					emergency[i] = emergency[emergency.length - 1];
+				}
+				emergency.pop();
+				break;
+			}
+		}
+	}
+
 	function createNewHospital(
 		uint8 bedCount
-		) external returns(address instance) {
+		) external onlyOwner returns(address instance) {
 		instance = Clones.clone(implementationContract);
 		(bool success, ) = instance.call(abi.encodeWithSignature("initialize(address,address,address)", msg.sender, bedCount));
 		if (success){
@@ -55,5 +77,9 @@ contract SWFContract {
 				break;
 			}
 		}
+	}
+	
+	function allHospital() view external returns (address[] memory) {
+		return hospitals;
 	}
 }

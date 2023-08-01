@@ -24,4 +24,5 @@ interface IHospital {
     function getStatus() external view returns (Status memory);
     function setCount(uint8 bedCount) external;
     function setHospitalData(uint8 currentBedCount, Symptoms[] memory impossibleSymptoms) external;
+    
 }
