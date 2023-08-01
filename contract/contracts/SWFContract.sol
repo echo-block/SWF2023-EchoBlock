@@ -9,25 +9,6 @@ contract SWFContract {
 	address[] public hospitals;
 	address public implementationContract;
 
-	enum Symptoms {
-        neurology,
-        cardiology,
-        addictionAndMetabolicDisorders,
-        surgery,
-        hemorrhage,
-        ophthalmology,
-        allergy,
-        pediatrics,
-        psychiatry,
-        infected
-    }
-
-    struct Status {
-        uint8 _bedCount;
-        uint8 _currentBedCount;
-        Symptoms[] _impossiblePatient;
-    }
-
 	constructor(address _implementation) {
 		implementationContract = _implementation;
 	}
@@ -61,6 +42,18 @@ contract SWFContract {
 		for (uint256 i = 0; i < length; i++) {
 			IHospital hospital = IHospital(nearHospitals[i]);
 			hospital.getStatus();
+		}
+	}
+
+	function deleteHospital(address element) internal {
+		for (uint256 i = 0; i < hospitals.length; i++) {
+			if (hospitals[i] == element) {
+				if (i < hospitals.length - 1) {
+					hospitals[i] = hospitals[hospitals.length - 1];
+				}
+				hospitals.pop();
+				break;
+			}
 		}
 	}
 }

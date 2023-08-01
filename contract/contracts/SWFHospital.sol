@@ -12,15 +12,12 @@ contract Hospital is IHospital, Initializable, Ownable {
   uint8 _currentBedCount;
   Symptoms[] _impossiblePatient;
 
-  error ErrLocked();
-  error ErrNotFound();
-
   function initialize(address _owner, uint8 bedCount) public payable initializer {
 		_bedCount = bedCount;
     _owner = msg.sender;
 	}
 
-  function setHospitalData(uint8 currentBedCount, Symptoms[] memory impossibleSymptoms) external {
+  function setHospitalData(uint8 currentBedCount, Symptoms[] memory impossibleSymptoms) external onlyOwner {
     if (currentBedCount != _currentBedCount){
       setCurrentCount(currentBedCount);
     }
